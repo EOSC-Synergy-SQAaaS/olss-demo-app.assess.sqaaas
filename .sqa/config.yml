@@ -1,0 +1,60 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.7
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/caifti/olss-demo-app:
+      branch: main
+      repo: https://github.com/caifti/olss-demo-app
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/caifti/olss-demo-app git:
+        commands:
+        - /usr/bin/env sh .sqa/script.woolly-cinnamon-tapir.sh
+        container: qc.acc_scanty-gold-opossum
+  QC.Doc:
+    repos:
+      github.com/caifti/olss-demo-app find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.gloppy-bronze-beagle.sh
+        container: qc.doc_homey-teal-rottweiler
+      github.com/caifti/olss-demo-app git:
+        commands:
+        - /usr/bin/env sh .sqa/script.whiny-mauve-akita.sh
+        container: qc.doc_boozy-pumpkin-armadillo
+      github.com/caifti/olss-demo-app markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.squirrely-alizarin-guppy.sh
+        container: qc.doc_lumpy-periwinkle-spitz
+  QC.Lic:
+    repos:
+      github.com/caifti/olss-demo-app licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.wheezy-olivine-husky.sh
+        container: qc.lic_wheezy-goldenrod-lynx
+  QC.Sty:
+    repos:
+      github.com/caifti/olss-demo-app checkstyle:
+        commands:
+        - /usr/bin/env sh .sqa/script.seedy-asparagus-tetra.sh
+        container: qc.sty_skinny-taupe-quail
+      github.com/caifti/olss-demo-app hadolint:
+        commands:
+        - /usr/bin/env sh .sqa/script.homey-tomato-abyssinian.sh
+        container: qc.sty_skanky-wisteria-bear
+      github.com/caifti/olss-demo-app jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.nippy-harlequin-rhinoceros.sh
+        container: qc.sty_hasty-peach-axolotl
+  QC.Ver:
+    repos:
+      github.com/caifti/olss-demo-app get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.clammy-salmon-loon.sh
+        container: qc.ver_ready-heliotrope-penguin
+timeout: 5400
